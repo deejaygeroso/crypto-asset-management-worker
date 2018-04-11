@@ -3,10 +3,11 @@ var CryptoSchema = require('../models')
 var api = require('../api');
 
 var job = new CronJob({
-  cronTime: '59 59 19 * * 0-6',
+  // sec, min, hour * * mon-sun 7:59AM
+  cronTime: '00 59 07 * * 0-6',
   onTick: () => {
     /* ----------------------------------------------------------
-     * Runs every weekday (Monday through Sunday) at 12:00:00 AM.
+     * Runs every week (Monday through Sunday) at 11:59:00 AM.
      * -------------------------------------------------------- */
     api.coinmarketcapReq(null, (err, res, cryptoList)=>{
         CryptoSchema.collection.insert(cryptoList, function (err, docs) {
